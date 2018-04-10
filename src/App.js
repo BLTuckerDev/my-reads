@@ -4,6 +4,13 @@ import './App.css'
 import Book from './Book'
 import {getAll} from "./BooksAPI";
 
+//TODO Change handler on the drop down to move books between shelves
+//TODO The search experience
+//TODO Routing
+//TODO JSX Formatting
+//TODO double check html and javascript style
+
+
 class BooksApp extends React.Component {
     state = {
         books: [],
