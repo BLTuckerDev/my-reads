@@ -6,7 +6,9 @@ class Book extends Component {
     render() {
         const {book, onChangeBookshelf} = this.props;
 
-        const authors = (book.authors === undefined) ? "" : book.authors.join()
+        const authors = (book.authors === undefined) ? "" : book.authors.join();
+        const imageLinks = book.imageLinks || null;
+        const thumbnail = (imageLinks != null && imageLinks.smallThumbnail) ? imageLinks.smallThumbnail : "";
 
         return (
             <div className="book">
@@ -15,7 +17,7 @@ class Book extends Component {
                          style={{
                              width: 128,
                              height: 193,
-                             backgroundImage: `url(${book.imageLinks.smallThumbnail})`
+                             backgroundImage: `url(${thumbnail})`
                          }}/>
                     <div className="book-shelf-changer">
                         <select value={book.shelf}
