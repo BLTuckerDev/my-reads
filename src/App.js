@@ -2,9 +2,8 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
-import {getAll} from "./BooksAPI";
 
-//TODO Change handler on the drop down to move books between shelves
+
 //TODO The search experience
 //TODO Routing
 //TODO JSX Formatting
@@ -25,6 +24,17 @@ class BooksApp extends React.Component {
 
                 this.setState(() => ({books}))
             })
+    }
+
+    changeBookshelf = (updatedBook, shelf) => {
+        const bookIndex = this.state.books.indexOf(updatedBook);
+        updatedBook.shelf = shelf
+
+        const updatedBooks = this.state.books.splice(bookIndex, 1, updatedBook);
+
+        this.setState(() => ({updatedBooks}));
+
+        BooksAPI.update(updatedBook, shelf)
     }
 
     render() {
@@ -69,7 +79,8 @@ class BooksApp extends React.Component {
                                                 .filter(book => book.shelf === 'currentlyReading')
                                                 .map((book) => (
                                                 <li key={book.id}>
-                                                    <Book book={book}/>
+                                                    <Book book={book}
+                                                          onChangeBookshelf={this.changeBookshelf} />
                                                 </li>))}
                                         </ol>
                                     </div>
@@ -82,7 +93,8 @@ class BooksApp extends React.Component {
                                                 .filter(book => book.shelf === 'wantToRead')
                                                 .map((book) => (
                                                 <li key={book.id}>
-                                                    <Book book={book}/>
+                                                    <Book book={book}
+                                                          onChangeBookshelf={this.changeBookshelf} />
                                                 </li>))}
                                         </ol>
                                     </div>
@@ -95,7 +107,8 @@ class BooksApp extends React.Component {
                                                 .filter(book => book.shelf === 'read')
                                                 .map((book) => (
                                                 <li key={book.id}>
-                                                    <Book book={book}/>
+                                                    <Book book={book}
+                                                          onChangeBookshelf={this.changeBookshelf} />
                                                 </li>))}
                                         </ol>
                                     </div>
