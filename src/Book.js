@@ -6,7 +6,7 @@ class Book extends Component {
     render() {
         const {book, onChangeBookshelf} = this.props;
 
-        const authors = book.authors.join()
+        const authors = (book.authors === undefined) ? "" : book.authors.join()
 
         return (
             <div className="book">
