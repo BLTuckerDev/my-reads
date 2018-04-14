@@ -3,17 +3,17 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
 import BookSearch from './BookSearch'
+import {Route, Link} from 'react-router-dom'
 
-//TODO Routing
+
 //TODO JSX Formatting
 //TODO double check html and javascript style
+
 //TODO Sort each shelf alphabetically
 
 class BooksApp extends React.Component {
     state = {
-        books: [],
-
-        showSearchPage: false
+        books: []
     }
 
     componentDidMount() {
@@ -42,9 +42,12 @@ class BooksApp extends React.Component {
 
         return (
             <div className="app">
-                {this.state.showSearchPage ? (
-                    <BookSearch onChangeBookshelf={this.changeBookshelf} />
-                ) : (
+
+                <Route path='/search' render={() => (
+                    <BookSearch onChangeBookshelf={this.changeBookshelf}/>
+                )}/>
+
+                <Route exact path='/' render={() => (
                     <div className="list-books">
                         <div className="list-books-title">
                             <h1>MyReads</h1>
@@ -58,10 +61,10 @@ class BooksApp extends React.Component {
                                             {books
                                                 .filter(book => book.shelf === 'currentlyReading')
                                                 .map((book) => (
-                                                <li key={book.id}>
-                                                    <Book book={book}
-                                                          onChangeBookshelf={this.changeBookshelf} />
-                                                </li>))}
+                                                    <li key={book.id}>
+                                                        <Book book={book}
+                                                              onChangeBookshelf={this.changeBookshelf}/>
+                                                    </li>))}
                                         </ol>
                                     </div>
                                 </div>
@@ -72,10 +75,10 @@ class BooksApp extends React.Component {
                                             {books
                                                 .filter(book => book.shelf === 'wantToRead')
                                                 .map((book) => (
-                                                <li key={book.id}>
-                                                    <Book book={book}
-                                                          onChangeBookshelf={this.changeBookshelf} />
-                                                </li>))}
+                                                    <li key={book.id}>
+                                                        <Book book={book}
+                                                              onChangeBookshelf={this.changeBookshelf}/>
+                                                    </li>))}
                                         </ol>
                                     </div>
                                 </div>
@@ -86,20 +89,20 @@ class BooksApp extends React.Component {
                                             {books
                                                 .filter(book => book.shelf === 'read')
                                                 .map((book) => (
-                                                <li key={book.id}>
-                                                    <Book book={book}
-                                                          onChangeBookshelf={this.changeBookshelf} />
-                                                </li>))}
+                                                    <li key={book.id}>
+                                                        <Book book={book}
+                                                              onChangeBookshelf={this.changeBookshelf}/>
+                                                    </li>))}
                                         </ol>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="open-search">
-                            <a onClick={() => this.setState({showSearchPage: true})}>Add a book</a>
+                            <Link to='/search'>Add a book</Link>
                         </div>
                     </div>
-                )}
+                )}/>
             </div>
         )
     }
