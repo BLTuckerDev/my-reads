@@ -6,35 +6,44 @@ import BookSearch from './BookSearch'
 import {Route, Link} from 'react-router-dom'
 
 
-//TODO JSX Formatting
-//TODO double check html and javascript style
-
-//TODO Sort each shelf alphabetically
-
 class BooksApp extends React.Component {
     state = {
         books: []
-    }
+    };
 
     componentDidMount() {
         BooksAPI.getAll()
             .then((books) => {
-                console.log(books);
-
+                this.sortBooks(books);
                 this.setState(() => ({books}))
             })
     }
 
     changeBookshelf = (updatedBook, shelf) => {
         const bookIndex = this.state.books.indexOf(updatedBook);
-        updatedBook.shelf = shelf
+        updatedBook.shelf = shelf;
 
         const updatedBooks = this.state.books.splice(bookIndex, 1, updatedBook);
 
+        this.sortBooks(updatedBooks);
         this.setState(() => ({updatedBooks}));
 
         BooksAPI.update(updatedBook, shelf)
-    }
+    };
+
+    sortBooks = (books) => {
+        books.sort((firstBook, secondBook) => {
+            const firstTitle = firstBook.title.toLowerCase();
+            const secondTitle = secondBook.title.toLowerCase();
+
+            if (firstTitle === secondTitle) {
+                return 0;
+            }
+
+            return firstTitle < secondTitle ? -1 : 1;
+
+        });
+    };
 
     render() {
 
@@ -104,8 +113,8 @@ class BooksApp extends React.Component {
                     </div>
                 )}/>
             </div>
-        )
+        );
     }
 }
 
-export default BooksApp
+export default BooksApp;

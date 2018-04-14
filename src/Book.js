@@ -24,7 +24,9 @@ class Book extends Component {
                          }}/>
                     <div className="book-shelf-changer">
                         <select value={shelf}
-                                onChange={(event) => {onChangeBookshelf(book, event.target.value)}} >
+                                onChange={(event) => {
+                                    onChangeBookshelf(book, event.target.value)
+                                }}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -36,7 +38,7 @@ class Book extends Component {
                 <div className="book-title">{bookTitle}</div>
                 <div className="book-authors">{authors}</div>
             </div>
-        )
+        );
     }
 }
 

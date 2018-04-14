@@ -18,7 +18,7 @@ class BookSearch extends Component {
                     this.setState(() => ({results: []}));
                 }
             });
-    }
+    };
 
     render() {
 
@@ -50,7 +50,7 @@ class BookSearch extends Component {
                     </ol>
                 </div>
             </div>
-        )
+        );
     }
 }
 
