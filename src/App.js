@@ -23,10 +23,15 @@ class BooksApp extends React.Component {
         const bookIndex = this.state.books.indexOf(updatedBook);
         updatedBook.shelf = shelf;
 
-        const updatedBooks = this.state.books.splice(bookIndex, 1, updatedBook);
+        const updatedBooks = this.state.books.slice(0);
+        if(bookIndex === -1){
+            updatedBooks.push(updatedBook);
+        } else {
+            updatedBooks.splice(bookIndex, 1, updatedBook)
+        }
 
         this.sortBooks(updatedBooks);
-        this.setState(() => ({updatedBooks}));
+        this.setState(() => ({books: updatedBooks}));
 
         BooksAPI.update(updatedBook, shelf)
     };
