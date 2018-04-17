@@ -10,14 +10,20 @@ class BookSearch extends Component {
     };
 
     search = (query) => {
-        BooksAPI.search(query)
-            .then((response) => {
-                if (response instanceof Array) {
-                    this.setState(() => ({results: response}));
-                } else {
-                    this.setState(() => ({results: []}));
-                }
-            });
+        query = query.trim();
+
+        if(query){
+            BooksAPI.search(query)
+                .then((response) => {
+                    if (response instanceof Array) {
+                        this.setState(() => ({results: response}));
+                    } else {
+                        this.setState(() => ({results: []}));
+                    }
+                });
+        } else {
+            this.setState(() => ({results: []}));
+        }
     };
 
     render() {
