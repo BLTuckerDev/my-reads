@@ -5,9 +5,19 @@ import * as BooksAPI from './BooksAPI'
 
 class BookSearch extends Component {
 
+    bookshelfMap = new Map();
+
     state = {
         results: []
     };
+
+    componentDidMount() {
+        this.props.books
+            .forEach((book) =>{
+                this.bookshelfMap[book.id] = book.shelf;
+            })
+
+    }
 
     search = (query) => {
         query = query.trim();
@@ -48,6 +58,13 @@ class BookSearch extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {results
+                            .map((book) =>{
+                                if(this.bookshelfMap[book.id]){
+                                    book.shelf = this.bookshelfMap[book.id];
+                                }
+
+                                return book;
+                            })
                             .map((book) => (
                                 <li key={book.id}>
                                     <Book book={book}
