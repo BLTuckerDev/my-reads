@@ -14,7 +14,7 @@ class BookSearch extends Component {
     componentDidMount() {
         this.props.books
             .forEach((book) =>{
-                this.bookshelfMap[book.id] = book.shelf;
+                this.bookshelfMap[book.id] = book;
             })
 
     }
@@ -60,7 +60,7 @@ class BookSearch extends Component {
                         {results
                             .map((book) =>{
                                 if(this.bookshelfMap[book.id]){
-                                    book.shelf = this.bookshelfMap[book.id];
+                                    return this.bookshelfMap[book.id];
                                 }
 
                                 return book;
